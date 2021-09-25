@@ -7,6 +7,7 @@ from django_countries.fields import CountryField
 
 
 # Create your models here.
+   
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=255)
@@ -83,7 +84,8 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
-
+            
+        
 class Business(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
@@ -133,6 +135,7 @@ class Business(models.Model):
         verbose_name = 'My Business'
         verbose_name_plural = 'Business'
 
+
 class Posts(models.Model):
     post = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)    
@@ -164,5 +167,3 @@ class Posts(models.Model):
         ordering = ['-pub_date']
         verbose_name = 'My Post'
         verbose_name_plural = 'Posts'
-
- 
