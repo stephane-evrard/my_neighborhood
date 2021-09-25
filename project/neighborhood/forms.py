@@ -13,11 +13,13 @@ class NewBusinessForm(forms.ModelForm):
         widgets = {
           'address': forms.Textarea(attrs={'rows':1, 'cols':10,}),
         }
+
 class NewNeighborhoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
         exclude = ['Admin', 'pub_date', 'admin_profile']
             
+
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -25,6 +27,7 @@ class ProfileUpdateForm(forms.ModelForm):
         widgets = {
           'bio': forms.Textarea(attrs={'rows':2, 'cols':10,}),
         }
+        
         
 class RegisterForm(RegistrationForm):
     first_name = forms.CharField(max_length=255)
@@ -40,10 +43,12 @@ class RegisterForm(RegistrationForm):
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
         self.helper.form_show_labels = True 
+        
+        
 class NewPostForm(forms.ModelForm):
     class Meta:
         model = Posts
         exclude = ['Author', 'pub_date', 'author_profile', 'neighborhood']
         widgets = {
           'post': forms.Textarea(attrs={'rows':2, 'cols':10,}),
-        }     
+        }
