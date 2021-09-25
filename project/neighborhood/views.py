@@ -9,28 +9,29 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.contrib import messages
 
+
 # Create your views here.
 
 def index(request):
     date = dt.date.today()
     # business = Business.get_allbusiness()
     all_neighborhoods = Neighborhood.get_neighborhoods()
-    
-    
+
     if 'neighborhood' in request.GET and request.GET["neighborhood"]:
         neighborhoods = request.GET.get("neighborhood")
         searched_neighborhood = Business.get_by_neighborhood(neighborhoods)
         all_posts = Posts.get_by_neighborhood(neighborhoods)
         message = f"{neighborhoods}"
-        all_neighborhoods = Neighborhood.get_neighborhoods()        
-        
-        return render(request, 'index.html', {"message":message,"location": searched_neighborhood,
-                                               "all_neighborhoods":all_neighborhoods, "all_posts":all_posts})
+        all_neighborhoods = Neighborhood.get_neighborhoods()
+
+        return render(request, 'index.html', {"message": message, "location": searched_neighborhood,
+                                              "all_neighborhoods": all_neighborhoods, "all_posts": all_posts})
 
     else:
         message = "No Neighborhood Found!"
 
-    return render(request, 'index.html', {"date": date, "all_neighborhoods":all_neighborhoods,})
+    return render(request, 'index.html', {"date": date, "all_neighborhoods": all_neighborhoods, })
+
 
 def register(request):
     if request.method == 'POST':
@@ -44,7 +45,8 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'registration/registration_form.html', {'form':form})
-
+    
+    
 @login_required(login_url='/accounts/login/')
 def search_businesses(request):
     if 'keyword' in request.GET and request.GET["keyword"]:
@@ -69,6 +71,7 @@ def get_business(request, id):
     
     
     return render(request, "projects.html", {"project":project})
+  
 
 @login_required(login_url='/accounts/login/')
 def new_business(request):
@@ -87,6 +90,7 @@ def new_business(request):
     else:
         form = NewBusinessForm()
     return render(request, 'new-business.html', {"form": form})
+
 
 @login_required(login_url='/accounts/login/')
 def user_profiles(request):
@@ -114,6 +118,7 @@ def user_profiles(request):
         form2 = NewNeighborhoodForm()
 
     return render(request, 'registration/profile.html', {"form":form, "form2":form2})
+
 
 @login_required(login_url='/accounts/login/')
 def new_post(request):
