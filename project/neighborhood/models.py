@@ -133,5 +133,36 @@ class Business(models.Model):
         verbose_name = 'My Business'
         verbose_name_plural = 'Business'
 
+class Posts(models.Model):
+    post = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True)    
+    neighborhood = models.ForeignKey(Neighborhood,on_delete=models.CASCADE)
+    Author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author_profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+
+
+    def save_post(self):
+        self.save()
+    
+    def delete_post(self):
+        self.delete()
+        
+    @classmethod
+    def get_allpost(cls):
+        posts = cls.objects.all()
+        return posts
+    
+    @classmethod
+    def get_by_neighborhood(cls, neighborhoods):
+        posts = cls.objects.filter(neighborhood__name__icontains=neighborhoods)
+        return posts
+    
+    def __str__(self):
+        return self.post
+    
+    class Meta:
+        ordering = ['-pub_date']
+        verbose_name = 'My Post'
+        verbose_name_plural = 'Posts'
 
  
