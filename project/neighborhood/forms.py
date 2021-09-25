@@ -13,4 +13,9 @@ class NewBusinessForm(forms.ModelForm):
         widgets = {
           'address': forms.Textarea(attrs={'rows':1, 'cols':10,}),
         }
+class NewNeighborhoodForm(forms.ModelForm):
+    class Meta:
+        model = Neighborhood
+        exclude = ['Admin', 'pub_date', 'admin_profile']
+            
 
