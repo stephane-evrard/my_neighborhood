@@ -44,4 +44,29 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'registration/registration_form.html', {'form':form})
+
+@login_required(login_url='/accounts/login/')
+def search_businesses(request):
+    if 'keyword' in request.GET and request.GET["keyword"]:
+        search_term = request.GET.get("keyword")
+        searched_projects = Business.search_business(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html', {"message":message,"businesses": searched_projects})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html', {"message": message})
+
+
+def get_business(request, id):
+
+    try:
+        project = Business.objects.get(pk = id)
+        
+    except ObjectDoesNotExist:
+        raise Http404()
     
+    
+    return render(request, "projects.html", {"project":project})
+  
